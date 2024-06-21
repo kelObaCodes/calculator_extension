@@ -1,0 +1,68 @@
+body {
+    font-family: Arial, sans-serif;
+    width: 500px;
+  }
+  
+  .tabs {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .tab-button {
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .tab-content {
+    display: none;
+  }
+  
+  .tab-content.active {
+    display: block;
+  }
+  
+  .calc-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .calc-btn {
+    padding: 20px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  #calc-display {
+    text-align: right;
+    padding: 20px;
+    background: #ccc;
+    font-size: 24px;
+  }
+  
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+  }
+  
+  .modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 500px;
+  }
+  
+  .close-button {
+    float: right;
+    cursor: pointer;
+  }
+  

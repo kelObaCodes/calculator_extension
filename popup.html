@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="popup.css">
+  <script src="popup.js" defer></script>
+  <script src="history.js" defer></script>
+</head>
+<body>
+  <div class="tabs">
+    <button id="calculator-tab" class="tab-button active">Calculator</button>
+    <button id="converter-tab" class="tab-button">Converter</button>
+  </div>
+
+  <div id="calculator" class="tab-content active">
+    <div id="calc-display">0</div>
+    <div class="calc-buttons">
+      <button class="calc-btn" data-value="7">7</button>
+      <button class="calc-btn" data-value="8">8</button>
+      <button class="calc-btn" data-value="9">9</button>
+      <button class="calc-btn" data-value="/">/</button>
+      <button class="calc-btn" data-value="4">4</button>
+      <button class="calc-btn" data-value="5">5</button>
+      <button class="calc-btn" data-value="6">6</button>
+      <button class="calc-btn" data-value="*">*</button>
+      <button class="calc-btn" data-value="1">1</button>
+      <button class="calc-btn" data-value="2">2</button>
+      <button class="calc-btn" data-value="3">3</button>
+      <button class="calc-btn" data-value="-">-</button>
+      <button class="calc-btn" data-value="0">0</button>
+      <button class="calc-btn" data-value=".">.</button>
+      <button class="calc-btn" data-value="+">+</button>
+      <button class="calc-btn" id="equals">=</button>
+      <button class="calc-btn" id="clear">C</button>
+      <button class="calc-btn" id="history">History</button>
+    </div>
+  </div>
+
+  <div id="converter" class="tab-content">
+    <label for="unit-type">Unit Type:</label>
+    <select id="unit-type">
+      <option value="length">Length</option>
+      <option value="weight">Weight</option>
+      <option value="temperature">Temperature</option>
+    </select>
+    <div id="length-converter" class="unit-converter">
+      <input type="number" id="length-input" placeholder="Enter value">
+      <select id="length-from">
+        <option value="inches">Inches</option>
+        <option value="feet">Feet</option>
+        <option value="meters">Meters</option>
+        <option value="kilometers">Kilometers</option>
+        <option value="miles">Miles</option>
+      </select>
+      to
+      <select id="length-to">
+        <option value="inches">Inches</option>
+        <option value="feet">Feet</option>
+        <option value="meters">Meters</option>
+        <option value="kilometers">Kilometers</option>
+        <option value="miles">Miles</option>
+      </select>
+      <button id="convert-length">Convert</button>
+      <div id="length-result"></div>
+    </div>
+    <!-- Add similar divs for weight and temperature conversions -->
+  </div>
+
+  <div id="history-modal" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2>Calculation History</h2>
+      <div id="history-content"></div>
+      <button id="clear-history">Clear History</button>
+    </div>
+  </div>
+</body>
+</html>

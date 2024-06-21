@@ -1,0 +1,16 @@
+{
+    "manifest_version": 3,
+    "name": "Calculator Extension",
+    "version": "1.0",
+    "description": "A calculator extension with history.",
+    "action": {
+      "default_popup": "popup.html"
+    },
+    "permissions": [
+      "storage"
+    ],
+    "content_security_policy": {
+      "extension_pages": "script-src 'self'; object-src 'self'"
+    }
+  }
+  
