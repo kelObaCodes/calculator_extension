@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     let display = document.getElementById('calc-display');
+    let resultDisplay = document.getElementById('calc-result');
     let buttons = document.querySelectorAll('.calc-btn');
     let historyModal = document.getElementById('history-modal');
     let closeHistoryButton = document.querySelector('.close-button');
@@ -11,25 +12,33 @@ document.addEventListener('DOMContentLoaded', function () {
       button.addEventListener('click', function () {
         let value = this.getAttribute('data-value');
         if (value) {
+          if (isOperator(value) && isOperator(currentCalculation.slice(-1))) {
+            // Prevent consecutive operators
+            return;
+          }
           currentCalculation += value;
           display.innerText = currentCalculation;
+          animateDisplay();
+          updateResult();
+        } else if (this.id === 'delete') {
+          currentCalculation = currentCalculation.slice(0, -1);
+          display.innerText = currentCalculation || '0';
+          updateResult();
+        } else if (this.id === 'clear') {
+          currentCalculation = '';
+          display.innerText = '0';
+          resultDisplay.innerText = '';
         } else if (this.id === 'equals') {
           try {
-            console.log('Current Calculation:', currentCalculation);
             let result = calculate(currentCalculation);
-            console.log('Result:', result);
             if (isNaN(result) || !isFinite(result)) throw new Error("Result is not a valid number");
             saveToHistory(currentCalculation + ' = ' + result);
             display.innerText = result;
             currentCalculation = result.toString();
           } catch (e) {
-            console.error('Error during calculation:', e);
             display.innerText = 'Error';
             currentCalculation = '';
           }
-        } else if (this.id === 'clear') {
-          currentCalculation = '';
-          display.innerText = '0';
         } else if (this.id === 'history') {
           openHistoryModal();
         }
@@ -72,6 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
           historyItem.addEventListener('click', function () {
             currentCalculation = entry.calculation.split(' = ')[0];
             display.innerText = currentCalculation;
+            resultDisplay.innerText = entry.calculation.split(' = ')[1];
             historyModal.style.display = 'none';
           });
           historyContent.appendChild(historyItem);
@@ -79,21 +89,38 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
   
-    function openHistoryModal() {
-      loadHistory();
-      historyModal.style.display = 'block';
+    function updateResult() {
+      try {
+        if (isValidExpression(currentCalculation)) {
+          let result = calculate(currentCalculation);
+          if (!isNaN(result) && isFinite(result)) {
+            resultDisplay.innerText = result;
+          } else {
+            resultDisplay.innerText = '';
+          }
+        } else {
+          resultDisplay.innerText = '';
+        }
+      } catch (e) {
+        resultDisplay.innerText = '';
+      }
     }
   
-    // Simple arithmetic parser
+    function isValidExpression(expression) {
+      const regex = /^\d+(\.\d+)?([\+\-\*\/]\d+(\.\d+)?)+$/;
+      return regex.test(expression);
+    }
+  
+    function isOperator(char) {
+      return ['+', '-', '*', '/'].includes(char);
+    }
+  
     function calculate(expression) {
       try {
-        // Remove all whitespace
         expression = expression.replace(/\s+/g, '');
-        // Validate the expression (only contains numbers and allowed operators)
         if (!/^[\d+\-*/().]+$/.test(expression)) {
           throw new Error("Invalid characters in expression");
         }
-        // Implement the calculation logic
         let result = evaluateExpression(expression);
         return result;
       } catch (e) {
@@ -102,7 +129,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   
     function evaluateExpression(expression) {
-      // Split the expression into tokens
       let tokens = expression.match(/(\d+|\+|\-|\*|\/|\(|\))/g);
       if (!tokens) throw new Error("Invalid expression");
   
@@ -154,22 +180,32 @@ document.addEventListener('DOMContentLoaded', function () {
       return values[0];
     }
   
+    function animateDisplay() {
+      display.style.transform = 'translateY(-10px)';
+      setTimeout(() => {
+        display.style.transform = 'translateY(0)';
+      }, 200);
+    }
   
-  // Handle tabs switching
-  document.getElementById('calculator-tab').addEventListener('click', function () {
-    document.getElementById('calculator').classList.add('active');
-    document.getElementById('converter').classList.remove('active');
-    this.classList.add('active');
-    document.getElementById('converter-tab').classList.remove('active');
-  });
-
-  document.getElementById('converter-tab').addEventListener('click', function () {
-    document.getElementById('calculator').classList.remove('active');
-    document.getElementById('converter').classList.add('active');
-    this.classList.add('active');
-    document.getElementById('calculator-tab').classList.remove('active');
-  });
-
+    function openHistoryModal() {
+      historyModal.style.display = 'block';
+      loadHistory();
+    }
+  
+    // Handle tabs switching
+    document.getElementById('calculator-tab').addEventListener('click', function () {
+      document.getElementById('calculator').classList.add('active');
+      document.getElementById('converter').classList.remove('active');
+      this.classList.add('active');
+      document.getElementById('converter-tab').classList.remove('active');
+    });
+  
+    document.getElementById('converter-tab').addEventListener('click', function () {
+      document.getElementById('calculator').classList.remove('active');
+      document.getElementById('converter').classList.add('active');
+      this.classList.add('active');
+      document.getElementById('calculator-tab').classList.remove('active');
+    });
 
     document.getElementById('convert-length').addEventListener('click', function () {
         let input = parseFloat(document.getElementById('length-input').value);
