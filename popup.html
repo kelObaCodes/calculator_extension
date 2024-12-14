@@ -1,163 +1,113 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculator</title>
-    <link rel="stylesheet" href="popup.css">
-</head>
-<body class="light-theme">
-    <div id="theme-toggle">🌞/🌜</div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Calculator</title>
+        <link rel="stylesheet" href="popup.css" />
+    </head>
+    <body class="light-theme">
+        <div id="theme-toggle">🌞/🌜</div>
 
-    <div id="tabs">
-        <div id="calculator-tab" class="active">Calculator</div>
-        <div id="converter-tab">Converter</div>
-    </div>
-
-    <div id="calculator" class="tab-content active">
-        <div id="calc-display-container">
-            <div id="calc-display">0</div>
-            <div id="calc-result"></div>
+        <div id="tabs">
+            <div id="calculator-tab" class="active">Calculator</div>
+            <div id="converter-tab">Converter</div>
         </div>
-        <div id="calc-buttons">
-            <button class="calc-btn" data-value="7">7</button>
-            <button class="calc-btn" data-value="8">8</button>
-            <button class="calc-btn" data-value="9">9</button>
-            <button class="calc-btn operator-class" data-value="/" id="divide">÷</button>
-        
-            <button class="calc-btn" data-value="4">4</button>
-            <button class="calc-btn" data-value="5">5</button>
-            <button class="calc-btn" data-value="6">6</button>
-            <button class="calc-btn operator-class" data-value="*" id="multiply">×</button>
-            <button class="calc-btn" data-value="1">1</button>
-            <button class="calc-btn" data-value="2">2</button>
-            <button class="calc-btn" data-value="3">3</button>
-            <button class="calc-btn operator-class" data-value="-" id="subtract">−</button>
-            <button class="calc-btn" data-value="0">0</button>
-            <button class="calc-btn" data-value="." id="decimal">.</button>
-            <button class="calc-btn" id="delete">Del</button>
-            <button class="calc-btn operator-class" data-value="+" id="add">+</button>
 
-            <button class="calc-btn" id="clear">AC</button>
+        <div id="calculator" class="tab-content active">
+            <div id="calc-display-container">
+                <div id="calc-display"></div>
+                <input type="text" id="calc-result" class="result-input" readonly>
+                
+            </div>
+            <div id="calc-buttons">
+                <button class="calc-btn" data-value="7">7</button>
+                <button class="calc-btn" data-value="8">8</button>
+                <button class="calc-btn" data-value="9">9</button>
+                <button
+                    class="calc-btn operator-class"
+                    data-value="/"
+                    id="divide"
+                >
+                    ÷
+                </button>
 
-            <button class="calc-btn" data-value="%" id="percent">%</button>
-            <button class="calc-btn" id="history">H</button>
-            <button class="calc-btn operator-class" id="equals">=</button>
+                <button class="calc-btn" data-value="4">4</button>
+                <button class="calc-btn" data-value="5">5</button>
+                <button class="calc-btn" data-value="6">6</button>
+                <button
+                    class="calc-btn operator-class"
+                    data-value="*"
+                    id="multiply"
+                >
+                    ×
+                </button>
+                <button class="calc-btn" data-value="1">1</button>
+                <button class="calc-btn" data-value="2">2</button>
+                <button class="calc-btn" data-value="3">3</button>
+                <button
+                    class="calc-btn operator-class"
+                    data-value="-"
+                    id="subtract"
+                >
+                    −
+                </button>
+                <button class="calc-btn" data-value="0">0</button>
+                <button class="calc-btn" data-value="." id="decimal">.</button>
+                <button class="calc-btn" id="delete">Del</button>
+                <button class="calc-btn operator-class" data-value="+" id="add">
+                    +
+                </button>
 
+                <button class="calc-btn" id="clear">AC</button>
+
+                <button class="calc-btn" data-value="%" id="percent">%</button>
+                <button class="calc-btn" id="history">H</button>
+                <button class="calc-btn operator-class" id="equals">=</button>
+            </div>
         </div>
-    </div>
-<!-- Add this inside the converter section -->
+        <!-- Add this inside the converter section -->
 
-<div id="converter" class="tab-content converter-section">
-    <!-- Length Converter -->
-    <div id="length-converter" class="converter-section">
-        <h2>Length Converter</h2>
-        <input type="number" id="length-input" class="input-class" placeholder="Enter value" />
-        <select id="length-from" class="input-class">
-            <option value="centimeter">Centimeter</option>
-            <option value="meter">Meter</option>
-            <option value="inch">Inch</option>
-            <option value="foot">Foot</option>
-            <option value="yard">Yard</option>
-        </select>
-        to
-        <select id="length-to" class="input-class">
-            <option value="centimeter">Centimeter</option>
-            <option value="meter">Meter</option>
-            <option value="inch">Inch</option>
-            <option value="foot">Foot</option>
-            <option value="yard">Yard</option>
-        </select>
-        <p>Result: <span id="length-result"></span></p>
-    </div>
-<hr>
-    <!-- Temperature Converter -->
-    <div id="temperature-converter" class="converter-section">
-        <h2>Temperature Converter</h2>
-        <input type="number" id="temperature-input" class="input-class" placeholder="Enter value" />
-        <select id="temperature-from" class="input-class">
-            <option value="celsius">Celsius</option>
-            <option value="fahrenheit">Fahrenheit</option>
-            <option value="kelvin">Kelvin</option>
-        </select>
-        to
-        <select id="temperature-to" class="input-class">
-            <option value="celsius">Celsius</option>
-            <option value="fahrenheit">Fahrenheit</option>
-            <option value="kelvin">Kelvin</option>
-        </select>
-        <p>Result: <span id="temperature-result"></span></p>
-    </div>
-    <hr>
-    <!-- Mass Converter -->
-    <div id="mass-converter" class="converter-section">
-        <h2>Mass Converter</h2>
-        <input type="number" id="mass-input" class="input-class" placeholder="Enter value" />
-        <select id="mass-from" class="input-class">
-            <option value="ton">Ton</option>
-            <option value="ounce">Ounce</option>
-            <option value="pound">Pound</option>
-            <option value="kilogram">Kilogram</option>
-            <option value="gram">Gram</option>
-        </select>
-        to
-        <select id="mass-to" class="input-class">
-            <option value="ton">Ton</option>
-            <option value="ounce">Ounce</option>
-            <option value="pound">Pound</option>
-            <option value="kilogram">Kilogram</option>
-            <option value="gram">Gram</option>
-        </select>
-        <p>Result: <span id="mass-result"></span></p>
-    </div>
-    <hr>
-    <!-- Data Converter -->
-    <div id="data-converter" class="converter-section">
-        <h2>Data Converter</h2>
-        <input type="number" id="data-input" class="input-class" placeholder="Enter value" />
-        <select id="data-from" class="input-class">
-            <option value="bit">Bit</option>
-            <option value="byte">Byte</option>
-            <option value="kilobyte">Kilobyte</option>
-            <option value="megabyte">Megabyte</option>
-            <option value="gigabyte">Gigabyte</option>
-            <option value="terabyte">Terabyte</option>
-        </select>
-        to
-        <select id="data-to" class="input-class">
-            <option value="bit">Bit</option>
-            <option value="byte">Byte</option>
-            <option value="kilobyte">Kilobyte</option>
-            <option value="megabyte">Megabyte</option>
-            <option value="gigabyte">Gigabyte</option>
-            <option value="terabyte">Terabyte</option>
-        </select>
-        <p>Result: <span id="data-result"></span></p>
-    </div>
-</div>
+        <!-- Length Converter -->
+        <div id="converter" class="tab-content converter-section">
+            <h2>Converter</h2>
+            <select id="conversion-type" class="input-class">
+                <option value="length">Length</option>
+                <option value="temperature">Temperature</option>
+                <option value="mass">Mass</option>
+                <option value="data">Data</option>
+            </select>
 
-
-    <div id="history-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-button">×</span>
-            <h2>Calculation History</h2>
-            <button id="clear-history" class="button-class">Clear</button>
-            <div id="history-content"></div>
+            <input
+                type="number"
+                id="converter-input"
+                class="input-class"
+                placeholder="Enter value"
+            />
+            <div class="clear-input-field">
+                <button id="clear-input" class="button-class">Clear</button>
+            </div>
+            <select id="converter-from" class="input-class"></select>
+            to
+            <select id="converter-to" class="input-class"></select>
+            <p>Result: <span id="converter-result"></span></p>
         </div>
-    </div>
 
-    <p class="name">
-        Designed & developed by
-        <a
-            href="https://www.linkedin.com/"
-            target="_blank"
-            id="myAnchor"
-        >
-            K0
-        </a>
-    </p>
-    <script src="popup.js"></script>
-</body>
+        <div id="history-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">×</span>
+                <h2>Calculation History</h2>
+                <button id="clear-history" class="button-class">Clear</button>
+                <div id="history-content"></div>
+            </div>
+        </div>
+        <hr />
+        <p class="name">
+            Designed & developed by
+            <a href="https://kelvin-igbinoba.web.app/?src=chrome_calculator_extension" target="_blank" id="myAnchor">
+                Kelvin Igbinoba
+            </a>
+        </p>
+        <script src="popup.js"></script>
+    </body>
 </html>
